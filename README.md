@@ -24,7 +24,6 @@ OpenAPI-спецификация находится в файле:
 ```txt
 api/rest_api.yml
 
-А userId берут из JWT обычно
 1. Создать пост
 POST /api/v1/posts
 
