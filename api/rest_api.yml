@@ -1,0 +1,140 @@
+openapi: 3.0.3
+
+info:
+  title: VK Social Network API
+  description: REST API для социальной сети в рамках курса System Design
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.com/api/v1
+
+paths:
+  /friends:
+    post:
+      summary: Добавление друга
+      responses:
+        '201':
+          description: Друг добавлен
+
+    get:
+      summary: Просмотр друзей авторизованного пользователя
+      responses:
+        '200':
+          description: Список друзей
+
+  /friends/{friendId}:
+    delete:
+      summary: Удаление друга
+      parameters:
+        - name: friendId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Друг удалён
+
+  /users/{userId}:
+    get:
+      summary: Просмотр анкеты пользователя
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Анкета пользователя
+
+  /posts:
+    post:
+      summary: Публикация поста
+      responses:
+        '201':
+          description: Пост опубликован
+
+  /posts/{postId}/media:
+    post:
+      summary: Загрузка медиа файлов для поста
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Медиа файл загружен
+
+  /feed:
+    get:
+      summary: Просмотр ленты постов
+      responses:
+        '200':
+          description: Лента постов
+
+  /dialogs:
+    get:
+      summary: Просмотр диалогов пользователя
+      responses:
+        '200':
+          description: Список диалогов
+
+  /dialogs/{dialogId}/messages:
+    post:
+      summary: Отправка сообщения в диалог
+      parameters:
+        - name: dialogId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Сообщение отправлено
+
+    get:
+      summary: Чтение сообщений в диалоге
+      parameters:
+        - name: dialogId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Список сообщений диалога
+
+  /chats:
+    get:
+      summary: Просмотр чатов пользователя
+      responses:
+        '200':
+          description: Список чатов
+
+  /chats/{chatId}/messages:
+    post:
+      summary: Отправка сообщения в чат
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Сообщение отправлено
+
+    get:
+      summary: Чтение сообщений в чате
+      parameters:
+        - name: chatId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Список сообщений чата
