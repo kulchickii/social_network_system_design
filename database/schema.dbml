@@ -1,0 +1,111 @@
+Table users {
+  id_user int [pk, increment]
+  username varchar
+  description text
+  avatar_url varchar
+  city varchar
+  created_at timestamp
+}
+
+Table user_interests {
+  id_interest int [pk, increment]
+  id_user int [ref: > users.id_user]
+  interest varchar
+}
+
+Table posts {
+  id_post int [pk, increment]
+  id_user int [ref: > users.id_user]
+  description text
+  created_at timestamp
+}
+
+Table post_media {
+  id_post_media int [pk, increment]
+  id_post int [ref: > posts.id_post]
+  id_media int [ref: > media.id_media]
+}
+
+Table media {
+  id_media int [pk, increment]
+  id_user int [ref: > users.id_user]
+  media_type varchar // photo, audio, video
+  url varchar
+  created_at timestamp
+}
+
+Table hashtags {
+  id_hashtag int [pk, increment]
+  name varchar
+}
+
+Table post_hashtags {
+  id_post int [ref: > posts.id_post]
+  id_hashtag int [ref: > hashtags.id_hashtag]
+}
+
+Table post_likes {
+  id_post_like int [pk, increment]
+  id_post int [ref: > posts.id_post]
+  id_user int [ref: > users.id_user]
+  created_at timestamp
+}
+
+Table post_views {
+  id_post_view int [pk, increment]
+  id_post int [ref: > posts.id_post]
+  id_user int [ref: > users.id_user]
+  created_at timestamp
+}
+
+Table comments {
+  id_comment int [pk, increment]
+  id_post int [ref: > posts.id_post]
+  id_user int [ref: > users.id_user]
+  text text
+  created_at timestamp
+}
+
+Table chats {
+  id_chat int [pk, increment]
+  created_at timestamp
+}
+
+Table chat_members {
+  id_chat int [ref: > chats.id_chat]
+  id_user int [ref: > users.id_user]
+}
+
+Table messages {
+  id_message int [pk, increment]
+  id_chat int [ref: > chats.id_chat]
+  id_sender int [ref: > users.id_user]
+  text text
+  is_read boolean
+  created_at timestamp
+}
+
+Table friendships {
+  id_friendship int [pk, increment]
+  id_user int [ref: > users.id_user]
+  id_friend int [ref: > users.id_user]
+  status varchar // pending, accepted, rejected
+  created_at timestamp
+}
+
+Table subscriptions {
+  id_subscription int [pk, increment]
+  id_follower int [ref: > users.id_user]
+  id_following int [ref: > users.id_user]
+  created_at timestamp
+}
+
+Table relationships {
+  id_relationship int [pk, increment]
+  id_user int [ref: > users.id_user]
+  id_partner int [ref: > users.id_user]
+  status varchar // in_love, married, complicated
+  created_at timestamp
+}
+
+Ref: "posts"."id_user" < "posts"."description"
